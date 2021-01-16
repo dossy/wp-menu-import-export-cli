@@ -78,6 +78,14 @@ trait WPB_Menu_Import {
 			 * terms (because we are doing CLI) then we need to handle that here.
 			 */
 			wp_set_object_terms( $new_menu[ $slug ]['id'], array( $menu_id ), 'nav_menu' );
+
+			if ( $menu_item['_ubermenu_custom_item_type'] ) {
+				update_post_meta( $new_menu[ $slug ]['id'], '_ubermenu_custom_item_type', $menu_item['_ubermenu_custom_item_type'] );
+			}
+
+			if ( $menu_item['_ubermenu_settings'] ) {
+				update_post_meta( $new_menu[ $slug ]['id'], '_ubermenu_settings', $menu_item['_ubermenu_settings'] );
+			}
 		}
 
 		$this->set_menu_location( $menu_id, $menu['location'] );

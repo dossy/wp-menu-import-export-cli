@@ -52,13 +52,25 @@ trait WPB_Menu_Export {
 					'slug'        => $item->ID,
 					'parent'      => $item->menu_item_parent,
 					'title'       => $item->title,
+					'object'      => $item->object,
 					'type'        => $item->type,
+					'type_label'  => $item->type_label,
 					'target'      => $item->target,
 					'attr_title'  => $item->attr_title,
 					'description' => $item->description,
 					'classes'     => $item->classes,
 					'xfn'         => $item->xfn,
 				);
+
+				$post_meta = get_post_meta( $item->ID );
+
+				if ( $post_meta['_ubermenu_settings'] ) {
+					$export_item['_ubermenu_settings'] = $post_meta['_ubermenu_settings'][0];
+				}
+
+				if ( $post_meta['_ubermenu_custom_item_type'] ) {
+					$export_item['_ubermenu_custom_item_type'] = $post_meta['_ubermenu_custom_item_type'][0];
+				}
 
 				switch ( $item->type ) {
 					case 'custom':
